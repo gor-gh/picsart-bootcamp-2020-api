@@ -36,7 +36,7 @@ module.exports = {
         if(avatarUrl && !helpers.validateImageUrl(avatarUrl)){
             errorMessages.push("Image URL is not correct.");
         }
-        if(sex && sex !== 'male' && sex !== 'famale'){
+        if(sex && sex !== 'male' && sex !== 'female'){
             errorMessages.push("Gender is not correct");
         }
         if(jsExperience !== undefined && reactExperience !== undefined &&  jsExperience < 0 || reactExperience < 0){
