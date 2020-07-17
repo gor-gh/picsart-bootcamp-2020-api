@@ -1,3 +1,5 @@
+const Topic = require('../models/topic');
+
 const helpers = {
     validateUserEmail: (email) => {
         const regExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -46,5 +48,9 @@ module.exports = {
             errorMessages.push("Company ID is not valid");
         }
         return errorMessages;
+    },
+    canUserVote: (user, topic, type) => {
+        return (type === 'like' && !topic.votes.includes(user.email)) ||
+            (type === 'unlike' && topic.votes.includes(user.email));
     }
 }

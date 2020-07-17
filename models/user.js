@@ -51,7 +51,6 @@ const userSchema = new Schema({
         type: Number,
 
     }
-
 });
 
 userSchema.pre('save', function (next) {
