@@ -34,8 +34,8 @@ module.exports = {
                     !birthDate ||
                     !sex ||
                     !avatarUrl ||
-                    !jsExperience ||
-                    !reactExperience ||
+                    jsExperience === undefined ||
+                    reactExperience === undefined ||
                     !companyId
                 ){
                     res.status(400).send("Missing required fields");
