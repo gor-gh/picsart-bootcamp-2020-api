@@ -4,7 +4,8 @@ const {Schema} = mongoose;
 const topicSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     votes: {
         type: [String],

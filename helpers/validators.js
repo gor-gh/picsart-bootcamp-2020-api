@@ -49,8 +49,8 @@ module.exports = {
         }
         return errorMessages;
     },
-    canUserVote: (user, topic, type) => {
-        return (type === 'like' && !topic.votes.includes(user.email)) ||
-            (type === 'unlike' && topic.votes.includes(user.email));
+    canUserVote: (user, voteTo, type) => {
+        return (type === 'like' && !voteTo.votes.includes(user.email)) ||
+            (type === 'unlike' && voteTo.votes.includes(user.email));
     }
 }
