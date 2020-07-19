@@ -101,41 +101,45 @@ module.exports = {
 
     login: (req, res) => {
         const { email, password } = req.body;
-        User.findOne({ email }, (err, user) => {
-            if (err || !user) {
-                res.status(404).send("Can't find user with specified username");
-            } else {
-                checkPasswordsForEquality(password, user.password)
-                    .then(passIsCorrect => {
-                        if (passIsCorrect) {
-                            createToken(user)
-                                .then(token => {
-                                    const userToSend = {
-                                        email: user.email,
-                                        firstName: user.firstName,
-                                        lastName: user.lastName,
-                                        birthDate: user.birthDate,
-                                        sex: user.sex,
-                                        avatarUrl: user.avatarUrl,
-                                        jsExperience: user.jsExperience,
-                                        reactExperience: user.reactExperience,
-                                        companyId: user.companyId,
-                                        token: token._id
-                                    }
-                                    res.status(200).json(userToSend);
-                                })
-                                .catch(err => {
-                                    res.status(500).json({
-                                        msg: "Can't properly log in"
-                                    });
-                                })
-                        }
-                    })
-                    .catch(err => {
-                        res.status(404).send(err);
-                    })
-            }
-        })
+        if(email && password){
+            User.findOne({ email }, (err, user) => {
+                if (err || !user) {
+                    res.status(404).send("Can't find user with specified username");
+                } else {
+                    checkPasswordsForEquality(password, user.password)
+                        .then(passIsCorrect => {
+                            if (passIsCorrect) {
+                                createToken(user)
+                                    .then(token => {
+                                        const userToSend = {
+                                            email: user.email,
+                                            firstName: user.firstName,
+                                            lastName: user.lastName,
+                                            birthDate: user.birthDate,
+                                            sex: user.sex,
+                                            avatarUrl: user.avatarUrl,
+                                            jsExperience: user.jsExperience,
+                                            reactExperience: user.reactExperience,
+                                            companyId: user.companyId,
+                                            token: token._id
+                                        }
+                                        res.status(200).json(userToSend);
+                                    })
+                                    .catch(err => {
+                                        res.status(500).json({
+                                            msg: "Can't properly log in"
+                                        });
+                                    })
+                            }
+                        })
+                        .catch(err => {
+                            res.status(401).send(err.message);
+                        })
+                }
+            })
+        } else {
+            res.status(400).send("Missing required fields");
+        }
     },
 
     logout: (req, res) => {

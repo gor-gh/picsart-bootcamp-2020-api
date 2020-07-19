@@ -9,9 +9,8 @@ module.exports = {
                 .digest('hex');
             if (newHash === passFromDb) {
                 resolve(true)
-                console.log("true")
             }
-            else reject(new Error("Passwords don't match"));
+            else reject(new Error("Wrong password"));
         })
     }
 }
