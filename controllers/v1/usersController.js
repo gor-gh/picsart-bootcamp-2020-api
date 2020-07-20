@@ -172,7 +172,7 @@ module.exports = {
                 Token.populate(token, 'owner', (err, token) => {
                     const errorMessages = validateUserData(body);
                     if(errorMessages.length){
-                        res.status(400).send(errorMessages.jon(' & '));
+                        res.status(400).send(errorMessages.join(' & '));
                     } else {
                         if(contains(validFields, body)){
                             if(body.password){
