@@ -9,7 +9,7 @@ app.set('port', process.env.PORT || 3002);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-    process.env.MONGODB_URI || "mongodb://localhost:27017/picsart-bootcamp-api-test",
+    process.env.MONGODB_URI || "mongodb://localhost:27017/picsart-bootcamp-api",
     { useNewUrlParser: true }
 );
 

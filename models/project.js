@@ -13,6 +13,9 @@ const projectSchema = new Schema({
     votes: {
         type: [String],
         required: true
+    },
+    isPicked: {
+        type: Boolean
     }
 })
 

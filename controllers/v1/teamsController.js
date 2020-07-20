@@ -1,9 +1,12 @@
 const Team = require('../../models/team');
+const Project = require('../../models/project');
+const Topic = require('../../models/topic');
 const User = require('../../models/user');
+const {authenticate} = require('./tokensController')
 const TOKEN_FOR_TEAM_GENERATION = 'xdUyK8b7zGDGPGW7bIQD7dKlLEG7dCxStvKvIzHHV6ZlBcTsvX';
 
 module.exports = {
-    generateTeams: (req, res) => {
+    generateTeams: (req, res, next) => {
         const { token } = req.headers;
         const teamNames = ['Linus Torvalds', 'Dennis Ritchie', 'Bjarne Stroustrup', 'Brendan Eich', 'John von Neumann'];
 
@@ -56,7 +59,6 @@ module.exports = {
                                     }
                                 })
                             })
-                            res.status(200).send("Teams generated successfully.")
                         }
                     })
                 }
@@ -64,5 +66,38 @@ module.exports = {
         } else {
             res.status(401).send("Wrong token or not mentioned.");
         }
+    },
+
+    getTeams: (req, res) => {
+        const { token } = req.headers;
+
+        if(token){
+            authenticate(token)
+                .then(token => {
+                    Token.populate(token, 'owner', (err, token) => {
+                        Team.find({}, (err, teams) => {
+                            if(err){
+                                res.status(500).send("Problem.")
+                            } else {
+                                teams.forEach(team => {
+                                    Team.populate(team, 'members', (err, team) => {
+                                        if(err){
+                                            res.status(500).send("Problem populating.")
+                                        }
+                                    });
+                                    setTimeout(() => {
+                                        res.status(200).json(teams)
+                                    }, 1000);
+                                })
+                            }
+                        })
+                    })
+                })
+                .catch(err => res.status(401).send(err.message));
+        } else {
+            res.status(401).send("No token mentioned.");
+        }
     }
+
+
 }

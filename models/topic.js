@@ -15,6 +15,9 @@ const topicSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true
+    },
+    isPicked: {
+        type: Boolean
     }
 });
 
