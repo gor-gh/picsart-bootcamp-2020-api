@@ -12,7 +12,7 @@ module.exports = {
                 if(teams.length){
                     res.status(400).send("Teams have already been created.")
                 } else {
-                    User.find({}, (err, users) => {
+                    User.find({}).limit(20).exec((err, users) => {
                         if(err || !users){
                             res.status(500).send("Can't find users.")
                         } else {
