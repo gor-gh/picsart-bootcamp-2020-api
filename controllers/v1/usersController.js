@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const User = require('../../models/user');
 const Token = require('../../models/token');
 const {validateUserData} = require('../../helpers/validators');
@@ -20,9 +21,16 @@ module.exports = {
             companyId
         } = req.body;
 
-        if(companyId !== 1 /* @TODO in production mode && companyId !== 2*/){
+        if(companyId !== 1 && companyId !== 2){
             res.status(404).send("Company not found.")
         } else {
+            if(companyId === 1 && mongoose.connection.name !== 'picsart-bootcamp-api-test'){
+                mongoose.connection.close();
+                mongoose.connect(
+                    process.env.MONGODB_URI || "mongodb://localhost:27017/picsart-bootcamp-api-test",
+                    { useNewUrlParser: true }
+                )
+            }
             User.findOne({email}, (err, user) => {
                 if(user){
                     res.status(400).send("The user with specified email address already exists.")

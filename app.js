@@ -22,3 +22,5 @@ app.use('/', router);
 app.listen(app.get('port'),() => {
     console.log("The server is now running at http://localhost:" + app.get('port'))
 })
+
+console.log(mongoose.connection.name)

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const usersRoutes = require('./usersRoutes');
 const topicsRoutes = require('./topicsRoutes');
 const projectsRoutes = require('./projectsRoutes');
+const teamsRoutes = require('./teamsRoutes');
 
 router.get('/companies',(req, res) => {
     res.json([
@@ -14,5 +15,6 @@ router.get('/companies',(req, res) => {
 router.use('/users',usersRoutes);
 router.use('/topics', topicsRoutes);
 router.use('/projects', projectsRoutes);
+router.use('/teams', teamsRoutes);
 
 module.exports = router;
