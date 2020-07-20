@@ -1,5 +1,6 @@
 const Team = require('../../models/team');
 const Project = require('../../models/project');
+const Token = require('../../models/token');
 const Topic = require('../../models/topic');
 const User = require('../../models/user');
 const {authenticate} = require('./tokensController')
