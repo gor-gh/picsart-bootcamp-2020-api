@@ -24,13 +24,6 @@ module.exports = {
         if(companyId !== 1 && companyId !== 2){
             res.status(404).send("Company not found.")
         } else {
-            if(companyId === 1 && mongoose.connection.name !== 'picsart-bootcamp-api-test'){
-                mongoose.connection.close();
-                mongoose.connect(
-                    process.env.MONGODB_URI || "mongodb://localhost:27017/picsart-bootcamp-api-test",
-                    { useNewUrlParser: true }
-                )
-            }
             User.findOne({email}, (err, user) => {
                 if(user){
                     res.status(400).send("The user with specified email address already exists.")
