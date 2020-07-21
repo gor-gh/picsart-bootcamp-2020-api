@@ -83,9 +83,11 @@ module.exports = {
                                 const responseArr = [];
                                 teams.forEach(team => {
                                     Team.populate(team, 'members', (err, team) => {
+
                                         if(err){
                                             res.status(500).send("Can't get team members.")
                                         } else {
+                                            console.log(team);
                                             const teamObect = {
                                                 id: team._id,
                                                 name: team.name,
