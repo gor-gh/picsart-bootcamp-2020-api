@@ -12,11 +12,11 @@ const teamSchema = Schema({
     project: {
         type: String
     },
-    members: {
-        type: [Schema.Types.ObjectID],
+    members: [{
+        type: Schema.Types.ObjectID,
         ref: "User",
         required: true
-    }
+    }]
 });
 
 module.exports = mongoose.model("Team", teamSchema)
