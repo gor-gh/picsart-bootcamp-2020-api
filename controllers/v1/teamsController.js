@@ -80,15 +80,32 @@ module.exports = {
                             if(err){
                                 res.status(500).send("Problem.")
                             } else {
+                                const responseArr = [];
                                 teams.forEach(team => {
                                     Team.populate(team, 'members', (err, team) => {
                                         if(err){
-                                            res.status(500).send("Problem populating.")
+                                            res.status(500).send("Can't get team members.")
+                                        } else {
+                                            const teamObect = {
+                                                id: team._id,
+                                                name: team.name,
+                                                topic: team.topic,
+                                                project: team.project,
+                                                members: team.members.map(member => (
+                                                    {
+                                                        firstName: member.firstName,
+                                                        lastName: member.lastName,
+                                                        avatarUrl: member.avatarUrl,
+                                                        email: member.email
+                                                    }
+                                                ))
+                                            };
+
+                                            if(responseArr.push(teamObect) === 5){
+                                                res.status(200).json(responseArr);
+                                            }
                                         }
-                                    });
-                                    setTimeout(() => {
-                                        res.status(200).json(teams)
-                                    }, 1000);
+                                    })
                                 })
                             }
                         })
