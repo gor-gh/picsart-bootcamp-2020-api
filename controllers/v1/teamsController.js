@@ -82,6 +82,7 @@ module.exports = {
                             } else {
                                 const responseArr = [];
                                 teams.forEach(team => {
+                                    console.log(team);
                                     Team.populate(team, 'members', (err, team) => {
 
                                         if(err){
