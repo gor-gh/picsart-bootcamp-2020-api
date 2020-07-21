@@ -7,12 +7,10 @@ const teamSchema = Schema({
         unique: true
     },
     topic: {
-        type: Schema.Types.ObjectID,
-        ref: "Topic"
+        type: String
     },
     project: {
-        type: Schema.Types.ObjectID,
-        ref: "Project"
+        type: String
     },
     members: {
         type: [Schema.Types.ObjectID],
